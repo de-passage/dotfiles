@@ -1,8 +1,6 @@
-# if [ -n "$(echo $(uname --all) | grep "el6")" ]; then
-  # return;
-# fi
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+#value If you come from bash you might have to change your $PATH.
+export PATH=$(echo "$PATH" | sed 's!\(/mnt[^:]*:\)\|\(:/mnt[^:]*\)!!g')
+export PATH="$HOME/.local/usr/bin:$HOME/.local/bin:$PATH"
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -12,7 +10,20 @@ export ZSH_DISABLE_COMPFIX="true"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-#ZSH_THEME="robbyrussell"
+ZSH_THEME="robbyrussell"
+
+COMPLETION_WAITING_DOTS="true"
+
+if [ -z "$SSH_CONNECTION" ]; then
+  ZSH_TMUX_AUTOSTART=${ZSH_TMUX_AUTOSTART:-"true"}
+else
+  ZSH_TMUX_AUTOSTART="false"
+fi
+ZSH_TMUX_AUTOQUIT="false"
+ZSH_TMUX_DEFAULT_SESSION_NAME="main"
+
+fpath+=$HOME/.local/completion
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -51,7 +62,7 @@ export ZSH_DISABLE_COMPFIX="true"
 # You can also set it to another string to have that shown instead of the default red dots.
 # e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
 # Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-COMPLETION_WAITING_DOTS="true"
+# COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -69,32 +80,12 @@ COMPLETION_WAITING_DOTS="true"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# This was meant to start tmux automatically if and only if I'm not connecting from SSH
-if [ -z "$SSH_CONNECTION" ]; then
-  ZSH_TMUX_AUTOSTART=${ZSH_TMUX_AUTOSTART:-"true"}
-else
-  ZSH_TMUX_AUTOSTART="false"
-fi
-ZSH_TMUX_AUTOQUIT="false"
-ZSH_TMUX_DEFAULT_SESSION_NAME="main"
-
-fpath+=$HOME/.local/completion
-fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
-
-# # Which plugins would you like to load?
-# # Standard plugins can be found in $ZSH/plugins/
-# # Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# # Example format: plugins=(rails git textmate ruby lighthouse)
-# # Add wisely, as too many plugins slow down shell startup.
-plugins=(git
-  jira
-  tmux
-  fd
-  ripgrep
-  zsh-autopair
-  zsh-autosuggestions
-  zsh-interactive-cd
-  zsh-syntax-highlighting)
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git tmux fd ripgrep zsh-autopair zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -123,18 +114,9 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-eval $(starship init zsh)
-
-alias vim=nvim
-alias ll='lsd --long'
-alias cat=bat
-HISTFILE=~/.histfile
-HISTSIZE=10000
-SAVEHIST=10000
-
+unsetopt BEEP
 bindkey -v
-source ~/.local/share/ldt/init.sh
+eval "$(starship init zsh)"
 
 # Ctrl+n
 bindkey "" history-beginning-search-forward
@@ -145,7 +127,17 @@ bindkey "" kill-whole-line
 # Ctrl+q
 bindkey "" vi-cmd-mode
 
-autopair-init
-compdef _gnu_generic exa
-compdef _gnu_generic lsd
+export CXX=clang++
+export CC=clang
 export EDITOR=nvim
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# Created by `pipx` on 2022-12-24 12:45:07
+export PATH="$PATH:/home/depassage/.local/bin:/home/depassage/workspace/go/bin:/home/depassage/go/bin"
