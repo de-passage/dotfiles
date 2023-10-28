@@ -1,5 +1,6 @@
 [core]
   pager = delta
+  excludesFile = ~/.gitignore
 
 [interactive]
   diffFilter = delta --color-only
@@ -20,6 +21,7 @@
   co = checkout
   cm = commit -m
 	dotfiles = !git --git-dir='/home/depassage/workspace/dotfiles-inline' --work-tree='/home/depassage'
+	tree = log --graph --oneline
 [user]
   name = de-passage
   email = contact@sylvainleclercq.com
