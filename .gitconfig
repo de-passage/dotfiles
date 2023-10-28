@@ -20,8 +20,10 @@
   st = status
   co = checkout
   cm = commit -m
-	dotfiles = !git --git-dir='/home/depassage/workspace/dotfiles-inline' --work-tree='/home/depassage'
-	tree = log --graph --oneline
+  dotfiles = !git --git-dir='/home/depassage/workspace/dotfiles-inline' --work-tree='/home/depassage'
+  tree = log --graph --oneline
+  mt = mergetool
+
 [user]
   name = de-passage
   email = contact@sylvainleclercq.com
@@ -34,3 +36,5 @@
 
 [mergetool "vimdiff"]
 	cmd = nvim -d "$LOCAL" "$BASE" "$REMOTE" "$MERGED" -c '$wincmd w' -c 'wincmd J'
+[pull]
+	rebase = true

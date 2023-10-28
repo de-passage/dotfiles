@@ -116,7 +116,6 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 unsetopt BEEP
 bindkey -v
-eval "$(starship init zsh)"
 
 # Ctrl+n
 bindkey "" history-beginning-search-forward
@@ -140,4 +139,8 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 # Created by `pipx` on 2022-12-24 12:45:07
-export PATH="$PATH:/home/depassage/.local/bin:/home/depassage/workspace/go/bin:/home/depassage/go/bin"
+#
+export PATH="$PATH:/home/depassage/.local/bin:$HOME/go/bin/:/usr/local/go/bin/:$HOME/.cargo/bin"
+eval "$(starship init zsh)"
+
+source $HOME/.config/lscolors/lscolors.sh
