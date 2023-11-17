@@ -20,7 +20,7 @@
   st = status
   co = checkout
   cm = commit -m
-  dotfiles = !git --git-dir='/home/depassage/workspace/dotfiles-inline' --work-tree='/home/depassage'
+  dotfiles = !git --git-dir="$HOME/workspace/dotfiles-inline" --work-tree="$HOME"
   tree = log --graph --oneline
   mt = mergetool
 
