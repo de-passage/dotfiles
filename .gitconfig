@@ -20,6 +20,9 @@
   st = status
   co = checkout
   cm = commit -m
+  ci = commit
+  rbc = rebase --continue
+  rba = rebase --abort
   dotfiles = !git --git-dir="$HOME/workspace/dotfiles-inline" --work-tree="$HOME"
   tree = log --graph --oneline
   mt = mergetool

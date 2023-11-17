@@ -1,4 +1,4 @@
-EXTRA_BIN_DIRECTORY="$HOME/.local/.bin"
+EXTRA_BIN_DIRECTORY="$HOME/.local/bin"
 export PATH="$EXTRA_BIN_DIRECTORY:$PATH"
 export EDITOR=vim
 
@@ -63,3 +63,9 @@ unset tmp_func_file
 unset COMPLETION_DIRECTORY
 unset EXTRA_MAN_PAGES
 unset EXTRA_BIN_DIRECTORY
+
+. "$HOME/.cargo/env"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
