@@ -8,6 +8,7 @@ Not useful if you're not me. Barely useful if you are
 mkdir -p "$HOME/workspace"
 export DOTFILES="$HOME/workspace/dotfiles"
 ```
+**Do NOT use ~ instead of $HOME here!!! I've had issues with it on some systems (ending up with an extra '~' folder)**
 
 ### Using $HOME as a git work tree
 
@@ -20,6 +21,7 @@ Checkout the branch matching the desired configuration directly:
 ```bash 
 git --work-dir="$HOME" --git-dir="$DOTFILES" checkout wsl_zsh --force # Needed if files already exist
 ```
+I keep the actual files in separate branches to avoid having the README around on my machines. Not great but it works.
 
 ### Using a separate git repo and symlinks 
 
@@ -37,7 +39,7 @@ find workspace -maxdepth 1 -exec ln -s "${PWD}"/{} "$HOME" \;
 
 Change the file permissions if needed:
 ```bash
-git --work-dir="$HOME" --git-dir="$DOTFILES" ls-files | xargs -n1 chmod 600
+git --work-tree="$HOME" --git-dir="$DOTFILES" ls-files | xargs -n1 chmod 600
 # or 
 git -C "$DOTFILES" ls-files | xargs -n1 chmod 600
 ```
@@ -62,4 +64,12 @@ cd ~/workspace/tmux-powerline && ./generate_rc.sh && mv ~/tmux-powerlinerc.defau
 ```
 
 ### Install bat, fd, rg, delta from release page or official repo
-To complete when I really have to do it...
+#### Delta 
+The package is named `git-delta` on some package managers. Otherwise dl it from https://github.com/dandavison/delta/releases  
+There's a musl version if the system is too old (req libc > 2.32 or something similar).
+#### Bat
+There is a `bat` package on most systems. Otherwise get it from the release page : https://github.com/sharkdp/bat/releases
+#### Rg
+The package is named `ripgrep`. The musl package needs to be installed manually. Put the binary in `~/.local/.bin`, the completion files in `~/.bash_completion.d/` and the doc in `~/.local/share/man/man1/`. 
+#### fd
+The package is named `fd-find. Release page at https://github.com/sharkdp/fd/releases. There is a package for old versions of Debian, don't use it and go for the musl.deb one. 
