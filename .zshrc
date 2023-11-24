@@ -85,7 +85,7 @@ DISABLE_MAGIC_FUNCTIONS="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git tmux nvm fd ripgrep zsh-autopair zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git tmux nvm fd golang ripgrep zsh-autopair zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -140,7 +140,22 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 # Created by `pipx` on 2022-12-24 12:45:07
 #
-export PATH="$PATH:/home/depassage/.local/bin:$HOME/go/bin/:/usr/local/go/bin/:$HOME/.cargo/bin"
+export PATH="/home/depassage/.local/bin:$HOME/go/bin/:/usr/local/go/bin/:$HOME/.cargo/bin:$HOME/.go/bin:$PATH"
 eval "$(starship init zsh)"
 
+[[ -d "$HOME/.lua-language-server/" ]] && export PATH="$HOME/.lua-language-server/bin:$PATH"
+
 source $HOME/.config/lscolors/lscolors.sh
+
+if command -v fzf &>/dev/null; then
+
+_fzf-file-explorer() {
+  local FILES="$(fb | sed -n "$ ! H; $ { H; x; s/^\n//; s/\([^\n]*\)\(\n\|$\)/'\1' /g; p }" )"
+  zle -U "$FILES"
+  zle reset-prompt
+}
+
+zle -N _fzf-file-explorer
+bindkey '^f' _fzf-file-explorer
+
+fi

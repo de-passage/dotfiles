@@ -1,0 +1,11 @@
+# Whitelist the dotfiles we want
+.*
+!.dotfiles_ignore
+!.bashrc
+!.zshrc
+Documents
+Téléchargements
+Images
+Downloads
+go
+[wW]orkspace
