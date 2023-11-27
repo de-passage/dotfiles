@@ -91,7 +91,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-# export MANPATH="/usr/local/man:$MANPATH"
+export MANPATH="$HOME/.local/share/man:/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -157,5 +157,22 @@ _fzf-file-explorer() {
 
 zle -N _fzf-file-explorer
 bindkey '^f' _fzf-file-explorer
+
+# _fh - look through history
+_fh() {
+  local saved_buffer=$BUFFER
+  local v=$( fc -l 1 | fzf --height '40%' --layout=reverse +s --tac --bind="start:put($BUFFER)" | sed -E 's/ *[0-9]*\*? *//' | sed -E 's/\\/\\\\/g')
+  if [ $? -eq 0 ] && [[ "$v" != '' ]]; then
+    BUFFER=$v
+    CURSOR=$#BUFFER
+  else
+    BUFFER=$saved_buffer
+    CURSOR=$#BUFFER
+  fi
+  zle reset-prompt
+}
+
+zle -N _fh
+bindkey '^r' _fh
 
 fi
