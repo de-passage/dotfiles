@@ -85,7 +85,7 @@ DISABLE_MAGIC_FUNCTIONS="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git tmux nvm fd golang ripgrep zsh-autopair zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git tmux nvm fd golang ripgrep zsh-completions zsh-autopair zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -176,3 +176,16 @@ zle -N _fh
 bindkey '^r' _fh
 
 fi
+
+LOCAL_CONFIG="$HOME/.config/zsh"
+if [[ -d "$LOCAL_CONFIG" ]]; then
+  if [[ -r "$LOCAL_CONFIG" ]]; then
+    for config_file ($LOCAL_CONFIG/*.zsh); do
+      source $config_file
+    done
+  else
+    echo "WARNING: Cannot read $LOCAL_CONFIG, check permissions" >&2
+  fi
+fi
+
+[ -f "/home/sii/.ghcup/env" ] && source "/home/sii/.ghcup/env" # ghcup-env
