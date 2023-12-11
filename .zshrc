@@ -85,7 +85,9 @@ DISABLE_MAGIC_FUNCTIONS="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+LOCAL_CONFIG="$HOME/.config/zsh"
 plugins=(git tmux nvm fd golang ripgrep zsh-completions zsh-autopair zsh-autosuggestions zsh-syntax-highlighting)
+[[ -f "$LOCAL_CONFIG/oh-my-zsh-plugins" ]] && plugins+=($(cat $LOCAL_CONFIG/oh-my-zsh-plugins))
 
 source $ZSH/oh-my-zsh.sh
 
@@ -177,10 +179,9 @@ bindkey '^r' _fh
 
 fi
 
-LOCAL_CONFIG="$HOME/.config/zsh"
 if [[ -d "$LOCAL_CONFIG" ]]; then
   if [[ -r "$LOCAL_CONFIG" ]]; then
-    for config_file ($LOCAL_CONFIG/*.zsh); do
+    for config_file ($LOCAL_CONFIG/*.zsh(N)); do
       source $config_file
     done
   else

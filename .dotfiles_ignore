@@ -1,5 +1,5 @@
 # Whitelist the dotfiles we want
-.*
+*
 !.dotfiles_ignore
 !.bashrc
 !.zshrc
