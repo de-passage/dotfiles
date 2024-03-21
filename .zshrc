@@ -151,14 +151,16 @@ source $HOME/.config/lscolors/lscolors.sh
 
 if command -v fzf &>/dev/null; then
 
-_fzf-file-explorer() {
-  local FILES="$(fb | sed -n "$ ! H; $ { H; x; s/^\n//; s/\([^\n]*\)\(\n\|$\)/'\1' /g; p }" )"
-  zle -U "$FILES"
+function ___find_files() {
+  local files=$(fb | sed -n "$ ! H; $ { H ; x ; s/^\n// ; s/\([^\n]*\)\(\n\|$\)/'\1' /g ; p }") &&
+     BUFFER="${LBUFFER}${files}${RBUFFER}"
+  (( CURSOR+=${#files} ))
   zle reset-prompt
 }
 
-zle -N _fzf-file-explorer
-bindkey '^f' _fzf-file-explorer
+zle -N ___find_files
+
+bindkey '^f' ___find_files
 
 # _fh - look through history
 _fh() {
@@ -177,6 +179,10 @@ _fh() {
 zle -N _fh
 bindkey '^r' _fh
 
+fi
+
+if command -v bat &>/dev/null; then
+  alias cat='bat'
 fi
 
 if [[ -d "$LOCAL_CONFIG" ]]; then
