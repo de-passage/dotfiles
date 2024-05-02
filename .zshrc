@@ -1,6 +1,10 @@
-#value If you come from bash you might have to change your $PATH.
+# This need to be done ahead of OMZ init to have color in autocompletion 
+eval $(dircolors "${XDG_CONFIG_HOME:-$HOME/.config}/lscolors/dircolors.default)
+
+# If you come from bash you might have to change your $PATH.
 export PATH=$(echo "$PATH" | sed 's!\(/mnt[^:]*:\)\|\(:/mnt[^:]*\)!!g')
 export PATH="$HOME/.local/usr/bin:$HOME/.local/bin:$PATH"
+
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -146,8 +150,6 @@ export PATH="/home/depassage/.local/bin:$HOME/go/bin/:/usr/local/go/bin/:$HOME/.
 eval "$(starship init zsh)"
 
 [[ -d "$HOME/.lua-language-server/" ]] && export PATH="$HOME/.lua-language-server/bin:$PATH"
-
-source $HOME/.config/lscolors/lscolors.sh
 
 if command -v fzf &>/dev/null; then
 
