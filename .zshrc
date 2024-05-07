@@ -185,7 +185,12 @@ fi
 
 if command -v bat &>/dev/null; then
   alias cat='bat'
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi
+
+function info() {
+  nvim +Info\ $1
+}
 
 if [[ -d "$LOCAL_CONFIG" ]]; then
   if [[ -r "$LOCAL_CONFIG" ]]; then
