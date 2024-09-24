@@ -1,5 +1,5 @@
-# This need to be done ahead of OMZ init to have color in autocompletion 
-eval $(dircolors "${XDG_CONFIG_HOME:-$HOME/.config}/lscolors/dircolors.default)
+# This need to be done ahead of OMZ init to have color in autocompletion
+eval $(dircolors "${XDG_CONFIG_HOME:-$HOME/.config}/lscolors/dircolors.default")
 
 # If you come from bash you might have to change your $PATH.
 export PATH=$(echo "$PATH" | sed 's!\(/mnt[^:]*:\)\|\(:/mnt[^:]*\)!!g')
@@ -90,7 +90,7 @@ DISABLE_MAGIC_FUNCTIONS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 LOCAL_CONFIG="$HOME/.config/zsh"
-plugins=(git tmux nvm fd golang ripgrep zsh-completions zsh-autopair zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git tmux nvm golang zsh-completions zsh-autopair zsh-autosuggestions zsh-syntax-highlighting)
 [[ -f "$LOCAL_CONFIG/oh-my-zsh-plugins" ]] && plugins+=($(cat $LOCAL_CONFIG/oh-my-zsh-plugins))
 
 source $ZSH/oh-my-zsh.sh
@@ -132,8 +132,6 @@ bindkey "" kill-whole-line
 # Ctrl+q
 bindkey "" vi-cmd-mode
 
-export CXX=clang++
-export CC=clang
 export EDITOR=nvim
 
 export NVM_DIR="$HOME/.nvm"
