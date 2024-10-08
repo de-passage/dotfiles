@@ -1,8 +1,10 @@
-# Whitelist the dotfiles we want
+# This file is the excludes file for the dotfiles repository.
+# Whitelist the dotfiles we want.
 *
 !.dotfiles_ignore
 !.bashrc
 !.zshrc
+!.gitignore
 Documents
 Téléchargements
 Images

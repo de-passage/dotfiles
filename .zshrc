@@ -89,7 +89,7 @@ DISABLE_MAGIC_FUNCTIONS="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-LOCAL_CONFIG="$HOME/.config/zsh"
+LOCAL_CONFIG="${XDG_CONFIG_HOME:-"${HOME}/.config"}/zsh"
 plugins=(git tmux nvm golang zsh-completions zsh-autopair zsh-autosuggestions zsh-syntax-highlighting)
 [[ -f "$LOCAL_CONFIG/oh-my-zsh-plugins" ]] && plugins+=($(cat $LOCAL_CONFIG/oh-my-zsh-plugins))
 
