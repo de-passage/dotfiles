@@ -184,6 +184,7 @@ fi
 if command -v bat &>/dev/null; then
   alias cat='bat'
   export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+  export MANROFFOPT="-c"
 fi
 
 function info() {
