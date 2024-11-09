@@ -5,6 +5,13 @@
 !.bashrc
 !.zshrc
 !.gitignore
+!.local/
+.local/*
+!.local/bin
+.local/bin/*
+!.local/bin/fb
+!.local/bin/_fb_opts
+!.local/bin/show.bash
 Documents
 Téléchargements
 Images

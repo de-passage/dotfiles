@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# vim: ft=bash
+
+OPT_FILE="${TMP:-/tmp}/fb_opts"
+
+# Manipulating the options
+if [[ -n "$1" ]]; then
+
+  __update() { cat <<< $(jq "${1}" "${OPT_FILE}") > ${OPT_FILE}; }
+
+  case "$1" in
+    m) __update 'if .mode == "f" then .mode="d" else .mode="f" end' ;;
+    h) __update '.hidden |= not' ;;
+    i) __update '.ignore |= not' ;;
+  esac
+
+fi
+
+# Printing the results
+printf "$(jq -r '
+  "| " + if .mode == "f" then "Files      " else "Directories" end +
+  " | " + if .hidden then "Show .dotfiles" else "Hide .dotfiles" end +
+  " | " + if .ignore then "Include .ignore" else "Exclude .ignore" end +
+  " | Ctrl-/ for help"
+  ' "${OPT_FILE}")\n"
+
+opts=( $(jq -r '
+  if .hidden then "--hidden" else "" end
+  + " " + if .ignore then "--no-ignore" else "" end
+  + " -t" + .mode
+  ' "${OPT_FILE}") )
+
+fd . ${opts[@]} --color always

@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# vim: ft=bash
+
+function compute_remaining_screen_space() {
+  bc <<< "scale=2;x=(${CURRENT})/${LINES}*100;scale=0;y=100-x; if (y > 40) print y; if (y <= 40) print 40;" | cut -d'.' -f1
+}
+
+if [[ -n $TMUX ]]; then
+  CURRENT=$(tmux display-message -pF '#{cursor_y}')
+  ((CURRENT++)) # tmux indexes at 0
+  LINES=${ROWS:-$(tput lines)}
+  PERCENT="$(compute_remaining_screen_space)%"
+elif [[ -t 0 ]]; then # don't print on stdin if we're not in a terminal
+  CURRENT="$(IFS=';' read -sdR -p $'\E[6n' ROW COL;echo "${ROW#*[}")"
+  LINES=${ROWS:-$(tput lines)}
+  PERCENT="$(compute_remaining_screen_space)%"
+else
+  PERCENT=40%
+fi
+
+OPT_FILE="${TMP:-/tmp}/fb_opts"
+[[ -f "$OPT_FILE" ]] || echo '{ "mode": "f", "hidden": false, "ignore": false }' > "${OPT_FILE}"
+
+# This was written for cygwin, change the escape characters and remove the extra call to bash in a proper environment
+# The show.bat part can be replaced with show.bash directly
+INITIAL_QUERY="${*:-}"
+: | fzf --ansi --query "${INITIAL_QUERY}" \
+  --header-lines=1 \
+  --multi \
+  --prompt 'search > ' \
+  --bind 'start:reload(_fb_opts)' \
+  --bind 'alt-f:reload(_fb_opts m)'\
+  --bind 'alt-h:reload(_fb_opts h)'\
+  --bind 'alt-i:reload(_fb_opts i)'\
+  --bind 'ctrl-/:preview(echo -e "Alt-F : toggle files/directories\nAlt-H : toggle hidden\nAlt-I : toggle ignore\n<F2> Change layout")' \
+  --bind 'f2:change-preview-window(99%,bottom|right)' \
+  --preview 'show.bash {}' \
+  --height="${PERCENT}" --layout reverse --info inline-right --border
+
