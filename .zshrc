@@ -131,6 +131,8 @@ bindkey "" history-beginning-search-backward
 bindkey "" kill-whole-line
 # Ctrl+q
 bindkey "" vi-cmd-mode
+# Ctrl+l
+bindkey "" clear-screen
 
 export EDITOR=nvim
 
