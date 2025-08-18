@@ -167,7 +167,7 @@ bindkey '^f' ___find_files
 # _fh - look through history
 _fh() {
   local saved_buffer=$BUFFER
-  local v=$( fc -l 1 | fzf --height '40%' --layout=reverse +s --tac --bind="start:put($BUFFER)" | sed -E 's/ *[0-9]*\*? *//' | sed -E 's/\\/\\\\/g')
+  local v=$( fc -l 1 | fzf --height '40%' --layout=reverse --tac --bind="start:put($BUFFER)" | sed -E 's/ *[0-9]*\*? *//' | sed -E 's/\\/\\\\/g')
   if [ $? -eq 0 ] && [[ "$v" != '' ]]; then
     BUFFER=$v
     CURSOR=$#BUFFER
