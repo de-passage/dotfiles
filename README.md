@@ -71,8 +71,10 @@ sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools
 ```
 Install the required plugins: 
 ```bash
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-"${HOME}/.oh-my-zsh/custom"}/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-"${HOME}/.oh-my-zsh/custom"}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-completions "${ZSH_CUSTOM:-"${HOME}/.oh-my-zsh/custom"}/plugins/zsh-completions"
+git clone https://github.com/hlissner/zsh-autopair "${ZSH_CUSTOM:-"${HOME}/.oh-my-zsh/custom"}/plugins/zsh-autopair"
 ```
 
 Installing the plugin manager moves the .zshrc, move it back to restore the settings:
