@@ -81,7 +81,7 @@ mv .zshrc.pre-oh-my-zsh .zshrc
 exec $SHELL
 ``` 
 
-### Install bat, fd, rg, delta from release page or official repo
+### Install bat, fd, rg, delta, fzf and jq from release page or official repo
 #### Delta 
 The package is named `git-delta` on some package managers. Otherwise dl it from https://github.com/dandavison/delta/releases  
 There's a musl version if the system is too old (req libc > 2.32 or something similar).
