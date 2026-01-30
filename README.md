@@ -19,7 +19,7 @@ git clone --bare git@github.com:de-passage/dotfiles.git "$DOTFILES"
 
 Checkout the branch matching the desired configuration directly: 
 ```bash 
-git --work-dir="$HOME" --git-dir="$DOTFILES" checkout wsl_zsh --force # Needed if files already exist
+git --work-tree="$HOME" --git-dir="$DOTFILES" checkout wsl_zsh --force # Needed if files already exist
 ```
 I keep the actual files in separate branches to avoid having the README around on my machines. Not great but it works.
 
