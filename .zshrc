@@ -204,3 +204,5 @@ if [[ -d "$LOCAL_CONFIG" ]]; then
 fi
 
 [ -f "/home/sii/.ghcup/env" ] && source "/home/sii/.ghcup/env" # ghcup-env
+
+command -v coder &>/dev/null && source <(coder completion zsh)
