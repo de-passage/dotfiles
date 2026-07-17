@@ -1,19 +1,17 @@
 #!/usr/bin/env bash
 # vim: ft=bash
 
-function compute_remaining_screen_space() {
-  bc <<< "scale=2;x=(${CURRENT})/${LINES}*100;scale=0;y=100-x; if (y > 40) print y; if (y <= 40) print 40;" | cut -d'.' -f1
-}
-
 if [[ -n $TMUX ]]; then
   CURRENT=$(tmux display-message -pF '#{cursor_y}')
   ((CURRENT++)) # tmux indexes at 0
   LINES=${ROWS:-$(tput lines)}
-  PERCENT="$(compute_remaining_screen_space)%"
+  PERCENT=$((100 - CURRENT * 100 / LINES))
+  PERCENT=$((PERCENT < 40 ? 40 : PERCENT))
 elif [[ -t 0 ]]; then # don't print on stdin if we're not in a terminal
   CURRENT="$(IFS=';' read -sdR -p $'\E[6n' ROW COL;echo "${ROW#*[}")"
   LINES=${ROWS:-$(tput lines)}
-  PERCENT="$(compute_remaining_screen_space)%"
+  PERCENT=$((100 - CURRENT * 100 / LINES))
+  PERCENT=$((PERCENT < 40 ? 40 : PERCENT))
 else
   PERCENT=40%
 fi

@@ -189,6 +189,8 @@ if command -v bat &>/dev/null; then
   export MANROFFOPT="-c"
 fi
 
+command -v nvim &>/dev/null && alias vim=nvim
+
 function info() {
   nvim +Info\ $1
 }
