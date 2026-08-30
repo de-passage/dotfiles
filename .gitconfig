@@ -26,6 +26,7 @@
   dotfiles = !git -c core.excludesFile="$HOME/.dotfiles_ignore" --git-dir="$HOME/workspace/dotfiles-inline" --work-tree="$HOME"
   tree = log --graph --oneline
   mt = mergetool
+  pu = "!f() { remote=${1:-origin}; if [ \"$#\" -gt 0 ]; then shift; fi; git push \"$remote\" --set-upstream \"$(git rev-parse --abbrev-ref HEAD)\" \"$@\"; }; f"
 
 [user]
   name = de-passage
