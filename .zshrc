@@ -26,7 +26,7 @@ fi
 ZSH_TMUX_AUTOQUIT="false"
 ZSH_TMUX_DEFAULT_SESSION_NAME="main"
 
-fpath+=$HOME/.local/completion
+fpath=($HOME/.local/completion $fpath)
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 # Set list of themes to pick from when loading at random
