@@ -33,18 +33,18 @@
   email = contact@sylvainleclercq.com
 
 [merge]
-	tool = vimdiff
+  tool = vimdiff
 
 [mergetool]
-	keepBackup = false
+  keepBackup = false
 
 [mergetool "vimdiff"]
-	cmd = nvim -d "$LOCAL" "$BASE" "$REMOTE" "$MERGED" -c '$wincmd w' -c 'wincmd J'
+  cmd = nvim -d "$LOCAL" "$BASE" "$REMOTE" "$MERGED" -c '$wincmd w' -c 'wincmd J'
 [pull]
-	rebase = true
+  rebase = true
 [init]
-	defaultBranch = master
+  defaultBranch = master
 [push]
-	autoSetupRemote = true
+  autoSetupRemote = true
 [credential]
-	helper = store
+  helper = store
