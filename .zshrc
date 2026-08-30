@@ -10,6 +10,9 @@ export PATH="$HOME/.local/usr/bin:$HOME/.local/bin:$PATH"
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_DISABLE_COMPFIX="true"
 
+# This is for workspaces which do not persist changes in the home directory config (mounting ~/workspace only).
+export WORKSPACE_CONFIG="$HOME/workspace/.config"
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -27,6 +30,9 @@ ZSH_TMUX_AUTOQUIT="false"
 ZSH_TMUX_DEFAULT_SESSION_NAME="main"
 
 fpath=($HOME/.local/completion $fpath)
+
+[[ -d "$WORKSPACE_CONFIG/completion" ]] && fpath=($WORKSPACE_CONFIG/completion $fpath)
+
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 # Set list of themes to pick from when loading at random
@@ -92,6 +98,7 @@ DISABLE_MAGIC_FUNCTIONS="true"
 LOCAL_CONFIG="${XDG_CONFIG_HOME:-"${HOME}/.config"}/zsh"
 plugins=(git tmux nvm golang zsh-completions zsh-autopair zsh-autosuggestions zsh-syntax-highlighting)
 [[ -f "$LOCAL_CONFIG/oh-my-zsh-plugins" ]] && plugins+=($(cat $LOCAL_CONFIG/oh-my-zsh-plugins))
+[[ -f "$WORKSPACE_CONFIG/zsh/oh-my-zsh-plugins" ]] && plugins+=($(cat $WORKSPACE_CONFIG/zsh/oh-my-zsh-plugins))
 
 source $ZSH/oh-my-zsh.sh
 
@@ -147,6 +154,7 @@ export SDKMAN_DIR="$HOME/.sdkman"
 # Created by `pipx` on 2022-12-24 12:45:07
 #
 export PATH="/home/depassage/.local/bin:$HOME/go/bin/:/usr/local/go/bin/:$HOME/.cargo/bin:$HOME/.go/bin:$PATH"
+[[ -d "$WORKSPACE_CONFIG/bin" ]] && PATH="$WORKSPACE_CONFIG/bin:$PATH"
 eval "$(starship init zsh)"
 
 [[ -d "$HOME/.lua-language-server/" ]] && export PATH="$HOME/.lua-language-server/bin:$PATH"
@@ -204,7 +212,5 @@ if [[ -d "$LOCAL_CONFIG" ]]; then
     echo "WARNING: Cannot read $LOCAL_CONFIG, check permissions" >&2
   fi
 fi
-
-[ -f "/home/sii/.ghcup/env" ] && source "/home/sii/.ghcup/env" # ghcup-env
 
 command -v coder &>/dev/null && source <(coder completion zsh)
